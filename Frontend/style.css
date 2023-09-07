@@ -1,0 +1,52 @@
+
+/*--------------------BODY---------------*/
+body {
+    margin: 0;
+    padding: 0em;
+    font-family: "Open Sans", sans-serif;
+    text-align: center
+    background-color: rgb(240, 238, 238);
+  }
+
+  h1 {
+    font-size: 3em;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+    color:black;
+  }
+  
+  #artists-grid {
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100vw;
+    margin-left: 2.8vw;
+    margin-top: 130px; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    cursor: grab;
+    gap: 1em;
+    padding: 1em;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+    padding: 0.5em;
+    background-color: var(--white);
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent
+  }
+
+
+.create-dialog {
+ background-color: black;
+}
+
+.artist-img{
+  /* width: 70%;
+  margin-left: 20%;
+  margin-top: 20%;
+  border: 3px solid rgba(112, 112, 112, 0.072);
+ border-color: blue; */
+ width: 100%;
+ height: auto;
+}

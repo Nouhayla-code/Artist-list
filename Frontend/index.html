@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Artist List</h1>
+        <button id="btn-create-artist">ADD ARTIST</button>
+  
+        <dialog id="create-dialog">
+            <h2>Create new Artist</h2>
+            <form id="form-create-artist">
+             <label for="name">Name:</label>
+             <input type="text" name="name" id="name" placeholder="....">'
+             <br />
+             <br>
+             <label for="birthdate">Birthday: </label>
+             <input type="date" name="birthdate" id="birthdate" placeholder="....">'
+             <br />
+             <br>
+             <label for="activeSince">Active since: </label>
+             <input type="date" name="activeSince" id="activeSince" placeholder="....">
+             <br />
+             <br>
+             <label for="genres">genres:</label>
+             <input type="text" name="genres" id="genres" placeholder="....">
+             <br />
+             <br>
+             <label for="labels">labels:</label>
+             <input type="text" name="labels" id="labels" placeholder="....">
+             <br />
+             <br>
+             <label for="website">website:</label>
+             <input type="url" name="website" id="website" placeholder="....">
+             <br />
+             <br>
+             <label for="image">image:</label>
+             <input type="url" name="image" id="image" placeholder="....">
+             <br />
+             <br>
+             <label for="shortDescription">Short Description:</label>
+             <input type="text" name="shortDescription" id="shortDescription" placeholder="....">
+             <br />
+             <br>
+             <button> Create Artist</button>
+             <button type="button" id="btn-cancel-create-artist"> Cancel </button>
+            </form>
+         </dialog>
+         <dialog id="update-dialog">
+            <h2>update Artist</h2>
+            <form id="form-update-artist">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" placeholder="....">'
+                <br />
+                <br>
+                <label for="birthdate">Birthday: </label>
+                <input type="date" name="birthdate" id="birthdate" placeholder="....">'
+                <br />
+                <br>
+                <label for="activeSince">Active since: </label>
+                <input type="date" name="activeSince" id="activeSince" placeholder="....">
+                <br />
+                <br>
+                <label for="genres">genres:</label>
+                <input type="text" name="genres" id="genres" placeholder="....">
+                <br />
+                <br>
+                <label for="labels">labels:</label>
+                <input type="text" name="labels" id="labels" placeholder="....">
+                <br />
+                <br>
+                <label for="website">website:</label>
+                <input type="url" name="website" id="website" placeholder="....">
+                <br />
+                <br>
+                <label for="image">image:</label>
+                <input type="url" name="image" id="image" placeholder="....">
+                <br />
+                <br>
+                <label for="shortDescription">Short Description:</label>
+                <input type="text" name="shortDescription" id="shortDescription" placeholder="....">
+                <br />
+                <br>
+                <button> Update Artist</button>
+                <button type="button" id="btn-update-artist"> Update </button>
+                <br />
+                <br>
+                <button> Cancel </button>
+                <button type="button" id="btn-cancel-update-artist"> Cancel </button>
+               </form>
+         </dialog>
+            </header>
+
+    <main>
+        <section id="artists-grid" ></section>
+      
+    </main>
+
+      <footer>
+        <script type="module" src="main.js"></script>
+      </footer>
+
+</body>
+</html>
