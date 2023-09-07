@@ -16,6 +16,24 @@ app.get("/artists", async (request, response) => {
   response.json(artists);
 });
 
+// get element til at få den specefikke artist i arayet
+app.get("/artists/:id", async (request, response) => {
+  const data = await fs.readFile("artist.json");
+  const artists = JSON.parse(data);
+
+  const id = request.params.id;
+
+  let artist = artists.find((artist) => artist.id === id);
+  console.log(artist);
+
+  if (!artist) {
+    response.status(404).json({ error: "404 artist not found" });
+  } else {
+    console.log(artists);
+    response.json(artist);
+  }
+});
+
 app.listen(port, () => {
   console.log(`Serveren er startet på localhost port ${port}`);
 });
@@ -41,20 +59,24 @@ app.put("/artists/:id", async (request, response) => {
   let artistToUpdate = artists.find((artist) => artist.id === id);
   console.log(artistToUpdate);
 
-  const body = request.body;
-  console.log(body);
-  artistToUpdate.name = body.name;
-  artistToUpdate.birthdate = body.birthdate;
-  artistToUpdate.activeSince = body.activeSince;
-  artistToUpdate.genres = body.genres;
-  artistToUpdate.labels = body.labels;
-  artistToUpdate.website = body.website;
-  artistToUpdate.image = body.image;
-  artistToUpdate.shortDescription = body.shortDescription;
+  if (!artistToUpdate) {
+    response.status(404).json({ error: "404 artist not found" });
+  } else {
+    const body = request.body;
+    console.log(body);
+    artistToUpdate.name = body.name;
+    artistToUpdate.birthdate = body.birthdate;
+    artistToUpdate.activeSince = body.activeSince;
+    artistToUpdate.genres = body.genres;
+    artistToUpdate.labels = body.labels;
+    artistToUpdate.website = body.website;
+    artistToUpdate.image = body.image;
+    artistToUpdate.shortDescription = body.shortDescription;
 
-  fs.writeFile("artist.json", JSON.stringify(artists));
-  console.log(artists);
-  response.json(artists);
+    fs.writeFile("artist.json", JSON.stringify(artists));
+    console.log(artists);
+    response.json(artists);
+  }
 });
 
 app.delete("/artists/:id", async (request, response) => {
@@ -66,11 +88,15 @@ app.delete("/artists/:id", async (request, response) => {
   let artistToDelete = artists.find((artist) => artist.id === id);
   console.log(artistToDelete);
 
-  let index = artists.indexOf(artistToDelete);
+  if (!artistToDelete) {
+    response.status(404).json({ error: "404 artist not found" });
+  } else {
+    let index = artists.indexOf(artistToDelete);
 
-  artists.splice(index, 1);
+    artists.splice(index, 1);
 
-  fs.writeFile("artist.json", JSON.stringify(artists));
-  console.log(artists);
-  response.json(artists);
+    fs.writeFile("artist.json", JSON.stringify(artists));
+    console.log(artists);
+    response.json(artists);
+  }
 });

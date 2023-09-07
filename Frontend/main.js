@@ -73,6 +73,7 @@ function addToFaves(artist) {
     alert("Artist is already added to list !");
   } else {
     faves.push(artist);
+    alert("Artist is added to list !");
     console.log(faves);
   }
 }
