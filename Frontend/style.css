@@ -31,9 +31,8 @@ body {
 
   .grid-container{
     border-radius: 8px;
-    padding: 20px
+    padding: 20px;
     box-shadow: 1px 1px 8px black;
-
   }
 
   #artists-grid :hover{
