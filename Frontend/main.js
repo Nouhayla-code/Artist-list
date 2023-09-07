@@ -1,8 +1,15 @@
-import { getArtist, createArtist, updateGrid } from "./rest-service.js";
+import {
+  getArtist,
+  createArtist,
+  updateGrid,
+  deleteArtist,
+} from "./rest-service.js";
 
 window.addEventListener("load", start);
 
 let artists;
+let theArtist;
+let faves = [];
 
 async function start() {
   console.log("der er hul igennem");
@@ -10,15 +17,26 @@ async function start() {
   console.log(artists);
 
   showArtists(artists);
+
+  // ----------eventlisteners------------
   document
     .querySelector("#btn-create-artist")
     .addEventListener("click", createArtistClicked);
   document
-    .querySelector("#btn-update-artist")
-    .addEventListener("click", updateGridClicked);
+    .querySelector("#btn-fave-list")
+    .addEventListener("click", showFavesList);
+
+  document.querySelector("#btn-home").addEventListener("click", start);
+
+  document.querySelector("#sort-after").addEventListener("change", chooseSort);
+  document
+    .querySelector("#search-bar")
+    .addEventListener("keyup", (event) => search(event.target.value));
 }
 
 function showArtists(artists) {
+  document.querySelector("#artists-grid").innerHTML = "";
+
   for (const artist of artists) {
     console.log(artist);
     document.querySelector("#artists-grid").insertAdjacentHTML(
@@ -29,39 +47,73 @@ function showArtists(artists) {
       <h2>${artist.name} </h2>
       <img class=artist-img src="${artist.image}">
       <p>${artist.genres}</p>
-      <button class="btn-cancel-update-artist">UPDATE</button>
+      <p>${artist.shortDescription}</p>
+      <button class="btn-cancel-artist">UPDATE</button>
       <button class="btn-delete">DELETE</button>
+      <button class="btn-faves"> ⭐</button>
      </article >
      `
     );
+
+    // ------------knap functioner-----------
     document
       .querySelector("article:last-child .btn-delete")
-      .addEventListener("click", () => clickDelete(artist));
+      .addEventListener("click", () => clickDelete(artist.id));
     document
-      .querySelector("article:last-child .btn-cancel-update-artist")
-      .addEventListener("click", () => updateGridClicked());
+      .querySelector("article:last-child .btn-cancel-artist")
+      .addEventListener("click", () => updateGridClicked(artist));
+    document
+      .querySelector("article:last-child .btn-faves")
+      .addEventListener("click", () => addToFaves(artist));
   }
 }
 
-async function createArtistClicked(event) {
-  document.querySelector("#create-dialog").showModal();
+function addToFaves(artist) {
+  if (faves.includes(artist)) {
+    alert("Artist is already added to list !");
+  } else {
+    faves.push(artist);
+    console.log(faves);
+  }
+}
+
+function showFavesList() {
+  showArtists(faves);
+}
+
+function createArtistClicked(event) {
+  const createDialog = document.querySelector("#create-dialog");
+  createDialog.showModal();
   document
     .querySelector("#form-create-artist")
     .addEventListener("submit", createArtistSubmitted);
   document
-    .querySelector("#btn-cancel-create-artist")
-    .addEventListener("click", closeDialog);
+    .querySelector("#btn-cancel-artist-create")
+    .addEventListener("click", () => closeDialog(createDialog));
 }
 
-async function updateGridClicked(event) {
-  document.querySelector("#update-dialog").showModal();
+function updateGridClicked(artist) {
+  const updateDialog = document.querySelector("#update-dialog");
+  updateDialog.showModal();
+
+  theArtist = artist;
+
+  document.querySelector("#name-update").value = artist.name;
+  document.querySelector("#birthdate-update").value = artist.birthdate;
+  document.querySelector("#activeSince-update").value = artist.activeSince;
+  document.querySelector("#genres-update").value = artist.genres;
+  document.querySelector("#labels-update").value = artist.labels;
+  document.querySelector("#website-update").value = artist.website;
+  document.querySelector("#image-update").value = artist.image;
+  document.querySelector("#shortDescription-update").value =
+    artist.shortDescription;
 
   document
     .querySelector("#form-update-artist")
     .addEventListener("submit", updateGridSubmitted);
   document
-    .querySelector("#btn-cancel-update-artist")
-    .addEventListener("click", closeDialog);
+    .querySelector("#btn-cancel-artist-update")
+    .addEventListener("click", () => closeDialog(updateDialog));
 }
 
 function createArtistSubmitted(event) {
@@ -82,10 +134,9 @@ function createArtistSubmitted(event) {
   createArtist(artist);
 }
 
-function closeDialog() {
-  document.querySelector("#create-dialog").close();
-  document.querySelector("#update-dialog").close();
+function closeDialog(dialog) {
   console.log("cancel");
+  dialog.close();
 }
 
 function updateGridSubmitted(event) {
@@ -105,8 +156,48 @@ function updateGridSubmitted(event) {
   updateGrid(artist);
 }
 
-function clickDelete(artist) {
+function clickDelete(id) {
+  const deleteDialog = document.querySelector("#delete-dialog");
+  deleteDialog.showModal();
+
+  document
+    .querySelector("#delete-yes")
+    .addEventListener("click", () => deleteArtist(id));
+
+  document
+    .querySelector("#delete-no")
+    .addEventListener("click", () => closeDialog(deleteDialog));
   console.log("delete er klikket");
 }
 
-export { artists };
+function chooseSort() {
+  let value = document.querySelector("#sort-after").value;
+  if (value === "name") {
+    artists.sort(sortAfterName);
+    showArtists(artists);
+  } else if (value === "active year") {
+    artists.sort(sortAfterActiveYears);
+    showArtists(artists);
+  }
+}
+
+function sortAfterName(a, b) {
+  return a.name.localeCompare(b.name);
+}
+function sortAfterActiveYears(a, b) {
+  return a.activeSince - b.activeSince;
+}
+
+function search(searchValue) {
+  console.log(artists);
+  console.log(searchValue);
+
+  let searchList = artists.filter((artist) =>
+    artist.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  console.log(searchList);
+  showArtists(searchList);
+}
+
+export { artists, theArtist };

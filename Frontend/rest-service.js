@@ -1,4 +1,4 @@
-import { artists } from "./main.js";
+import { artists, theArtist } from "./main.js";
 
 const endpoint = " http://localhost:3000";
 
@@ -26,18 +26,18 @@ async function createArtist(artist) {
   if (response.ok) {
     console.log(" ny artist oprettet");
     updateGrid();
-    alert("Artist oprettet");
+    alert("Artist created");
   }
 }
 
-async function updateGrid(artis) {
+async function updateGrid(artists) {
   const newArtistUpdate = artists;
 
   console.log(newArtistUpdate);
 
   const json = JSON.stringify(newArtistUpdate);
 
-  const respone = await fetch(`${endpoint}/artists`, {
+  const respone = await fetch(`${endpoint}/artists/${theArtist.id}`, {
     method: "PUT",
     body: json,
     headers: {
@@ -47,8 +47,19 @@ async function updateGrid(artis) {
 
   if (respone.ok) {
     console.log("Artist opdateret");
-    alert("Artist opdateret");
+    alert("Artist updated");
   }
 }
 
-export { getArtist, createArtist, updateGrid };
+async function deleteArtist(id) {
+  const respone = await fetch(`${endpoint}/artists/${id}`, {
+    method: "DELETE",
+  });
+
+  if (respone.ok) {
+    console.log("Artist slettet");
+    alert("Artist deleted");
+  }
+}
+
+export { getArtist, createArtist, updateGrid, deleteArtist };

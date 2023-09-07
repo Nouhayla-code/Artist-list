@@ -3,105 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist List</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
     <header>
         <h1>Artist List</h1>
-        <button id="btn-create-artist">ADD ARTIST</button>
-  
+        <button id="btn-create-artist">Add artist</button>
+        <select name="sort-after" id="sort-after"> 
+            <option value="name"> Name</option>
+            <option value="active year"> Active Since</option>
+        </select>
+        <input id="search-bar" type="text" placeholder="search here...🔍">
+        <button id="btn-fave-list"> ⭐ Favorites </button>
+        <button id="btn-home"> 🏠Home </button>
+        <br />
+        <br>
+    </header>
+    <main>
         <dialog id="create-dialog">
             <h2>Create new Artist</h2>
             <form id="form-create-artist">
              <label for="name">Name:</label>
-             <input type="text" name="name" id="name" placeholder="....">'
+             <input type="text" name="name" id="name" placeholder="type here..">
              <br />
              <br>
              <label for="birthdate">Birthday: </label>
-             <input type="date" name="birthdate" id="birthdate" placeholder="....">'
+             <input type="date" name="birthdate" id="birthdate" placeholder="">'
              <br />
              <br>
              <label for="activeSince">Active since: </label>
-             <input type="date" name="activeSince" id="activeSince" placeholder="....">
+             <input type="date" name="activeSince" id="activeSince" placeholder="type here..">
              <br />
              <br>
              <label for="genres">genres:</label>
-             <input type="text" name="genres" id="genres" placeholder="....">
+             <input type="text" name="genres" id="genres" placeholder="type here..">
              <br />
              <br>
              <label for="labels">labels:</label>
-             <input type="text" name="labels" id="labels" placeholder="....">
+             <input type="text" name="labels" id="labels" placeholder="type here..">
              <br />
              <br>
              <label for="website">website:</label>
-             <input type="url" name="website" id="website" placeholder="....">
+             <input type="url" name="website" id="website" placeholder="type here..">
              <br />
              <br>
              <label for="image">image:</label>
-             <input type="url" name="image" id="image" placeholder="....">
+             <input type="url" name="image" id="image" placeholder="insert here..">
              <br />
              <br>
              <label for="shortDescription">Short Description:</label>
-             <input type="text" name="shortDescription" id="shortDescription" placeholder="....">
+             <input type="text" name="shortDescription" id="shortDescription" placeholder="type here..">
              <br />
              <br>
              <button> Create Artist</button>
-             <button type="button" id="btn-cancel-create-artist"> Cancel </button>
+             <button type="button" id="btn-cancel-artist-create"> Cancel </button>
             </form>
          </dialog>
          <dialog id="update-dialog">
-            <h2>update Artist</h2>
+            <h2>Update Artist</h2>
             <form id="form-update-artist">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" placeholder="....">'
+                <label for="name-update">Name:</label>
+                <input type="text" name="name" id="name-update" placeholder="type here..">'
                 <br />
                 <br>
-                <label for="birthdate">Birthday: </label>
-                <input type="date" name="birthdate" id="birthdate" placeholder="....">'
+                <label for="birthdate-update">Birthday: </label>
+                <input type="date" name="birthdate" id="birthdate-update" placeholder="....">'
                 <br />
                 <br>
-                <label for="activeSince">Active since: </label>
-                <input type="date" name="activeSince" id="activeSince" placeholder="....">
+                <label for="activeSince-update">Active since: </label>
+                <input type="date" name="activeSince" id="activeSince-update" placeholder="type here..">
                 <br />
                 <br>
-                <label for="genres">genres:</label>
-                <input type="text" name="genres" id="genres" placeholder="....">
+                <label for="genres-update">genres:</label>
+                <input type="text" name="genres" id="genres-update" placeholder="type here..">
                 <br />
                 <br>
-                <label for="labels">labels:</label>
-                <input type="text" name="labels" id="labels" placeholder="....">
+                <label for="labels-update">labels:</label>
+                <input type="text" name="labels" id="labels-update" placeholder="type here..">
                 <br />
                 <br>
-                <label for="website">website:</label>
-                <input type="url" name="website" id="website" placeholder="....">
+                <label for="website-update">website:</label>
+                <input type="url" name="website" id="website-update" placeholder="type here..">
                 <br />
                 <br>
-                <label for="image">image:</label>
-                <input type="url" name="image" id="image" placeholder="....">
+                <label for="image-update">image:</label>
+                <input type="url" name="image" id="image-update" placeholder="insert here...">
                 <br />
                 <br>
-                <label for="shortDescription">Short Description:</label>
-                <input type="text" name="shortDescription" id="shortDescription" placeholder="....">
+                <label for="shortDescription-update">Short Description:</label>
+                <input type="text" name="shortDescription" id="shortDescription-update" placeholder="type here..">
                 <br />
                 <br>
-                <button> Update Artist</button>
-                <button type="button" id="btn-update-artist"> Update </button>
-                <br />
-                <br>
-                <button> Cancel </button>
-                <button type="button" id="btn-cancel-update-artist"> Cancel </button>
+                <button>Update</button>
+                <button type="button" id="btn-cancel-artist-update"> Cancel </button>
                </form>
          </dialog>
-            </header>
-
-    <main>
+         <dialog id="delete-dialog">
+            <p> You sure you want to delete ?</p>
+            <button id="delete-yes"> YES</button>
+            <button id="delete-no"> NO</button>
+         </dialog>
         <section id="artists-grid" ></section>
       
     </main>
 
       <footer>
+        <h2 id="footer-hooter">Made by Nouhayla 🐜🐜🐜</h2>
         <script type="module" src="main.js"></script>
       </footer>
 

@@ -30,14 +30,47 @@ app.post("/artists", async (request, response) => {
   fs.writeFile("artist.json", JSON.stringify(artists));
   response.json(artists);
 });
-app.put("/artists", async (request, response) => {
-  const newArtistUpdate = request.body;
-  newArtistUpdate.id = uuidv4();
-  console.log(newArtistUpdate);
+
+app.put("/artists/:id", async (request, response) => {
+  const id = request.params.id;
+  console.log(id);
+
   const data = await fs.readFile("artist.json");
   const artists = JSON.parse(data);
-  artists.push(newArtistUpdate);
+
+  let artistToUpdate = artists.find((artist) => artist.id === id);
+  console.log(artistToUpdate);
+
+  const body = request.body;
+  console.log(body);
+  artistToUpdate.name = body.name;
+  artistToUpdate.birthdate = body.birthdate;
+  artistToUpdate.activeSince = body.activeSince;
+  artistToUpdate.genres = body.genres;
+  artistToUpdate.labels = body.labels;
+  artistToUpdate.website = body.website;
+  artistToUpdate.image = body.image;
+  artistToUpdate.shortDescription = body.shortDescription;
+
   fs.writeFile("artist.json", JSON.stringify(artists));
+  console.log(artists);
   response.json(artists);
 });
-app.delete("/artists", async (request, response) => {});
+
+app.delete("/artists/:id", async (request, response) => {
+  const id = request.params.id;
+  console.log(id);
+  const data = await fs.readFile("artist.json");
+  const artists = JSON.parse(data);
+
+  let artistToDelete = artists.find((artist) => artist.id === id);
+  console.log(artistToDelete);
+
+  let index = artists.indexOf(artistToDelete);
+
+  artists.splice(index, 1);
+
+  fs.writeFile("artist.json", JSON.stringify(artists));
+  console.log(artists);
+  response.json(artists);
+});
